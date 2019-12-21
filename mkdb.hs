@@ -11,14 +11,12 @@ import qualified Data.HashMap.Strict as HT
 mlocateDir = "/var/lib/mlocate"
 htFile = mlocateDir </> "dblookup.ht"
 
--- FIXME:  Let's share the mlocate files among
--- the databses. Prototype with given src path,
--- but refine to realpath(2)
 -- 1. The databse will contain a list of the dbfiles
 --   it's a hashtable name -> [FilePath]
 --   it is written to /var/lib/mlocate/dblookup.tab
 -- 2. The files are the mlocate data in
 --  /var/lib/mlocate/<realpath>/<relative-to>/<root: file:///>
+-- FIXME:Prototype with given src path but refine to realpath(2)
 
 type DB = HT.HashMap String [FilePath]
 
