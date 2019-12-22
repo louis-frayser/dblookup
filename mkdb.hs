@@ -1,57 +1,16 @@
+{- | mkdb -- create a dblookup database
 import Control.Monad (liftM)
 import System.Directory
 import System.FilePath
 import System.Process
-import System.Exit
-import System.Environment
+
+
 import qualified System.IO.Strict as Strict
 import qualified Data.HashMap.Strict as HT
-
-
-mlocateDir = "/var/lib/mlocate"
-htFile = mlocateDir </> "dblookup.ht"
-
--- 1. The database will be a dictionary of assocations of
---    symbolic databae names to path-iists. 
---    mkdb dbname path1 path2 path3.. creates a
---    mlocate datafiles in
---    /var/lib/mlocate/path{1,2,3..}/mlocate.db.
----   It then inserts the association to
---    /var/lib/mlocate/dblookup.tab (a haskell hashtable)
--- 2. On subsequent runs the dictionay is updated.
-type DB = HT.HashMap String [FilePath]
-
-spawn :: String -> IO ExitCode
-spawn cmd = putStrLn cmd >> system cmd
-
-updatedb :: DB -> String -> [FilePath] -> IO ExitCode
-updatedb ht key paths =
-  let updatedb' (p:paths) =
-         do path <- canonicalizePath p
-            let dbdir = mlocateDir ++ path
-            let dbfspec=dbdir ++ "/mlocate.db"
-            createDirectoryIfMissing True dbdir
-            let cmd = "updatedb -o " ++ dbfspec++" -U "++path
-            spawn cmd
-            updatedb' paths
-      updatedb' [] =
-        do writeFile htFile (show $ HT.insert key paths ht)
-           return ExitSuccess
-   in updatedb' paths
-
-{- | mkdb key paths
-$MLOCATEDIR/dblookup.ht is updated to
-  1. for each path create an mloate.db at $MLOCATEDIR/path
-  2. insert an assoc: (key paths) :: String [FilePath]
-     into ht :: HashMap k v and write ht to disk at
-     $MLOCATEDIR/dblookup.ht
 -}
-mkdb :: String -> [FilePath] ->  IO ExitCode
-mkdb key paths = 
-  do exists <- doesFileExist htFile
-     ht <- if exists then liftM read $ Strict.readFile htFile::IO DB
-           else return HT.empty
-     updatedb ht key paths
+import System.Environment
+import System.Exit
+import DB
 
 usage =
   "\nUsage: mkdb dbname path...\n\

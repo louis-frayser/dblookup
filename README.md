@@ -16,7 +16,7 @@ Planed are two tools: mkdb, dblookup they are analogous to updatedb and locate.
 	
 	
 	
-2. dblookup dbname seachspec
+2. dblookup dbname seachspec...
 
     looks for matches to searchspec in mlocate databases
 	   associated with dbname.

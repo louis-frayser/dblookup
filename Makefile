@@ -3,7 +3,7 @@
 % : %.hs
 	ghc --make $@
 
-TARGETS=mkdb
+TARGETS=mkdb dblookup
 
 all:: ${TARGETS}
 
