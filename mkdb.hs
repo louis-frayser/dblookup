@@ -11,13 +11,14 @@ import qualified Data.HashMap.Strict as HT
 mlocateDir = "/var/lib/mlocate"
 htFile = mlocateDir </> "dblookup.ht"
 
--- 1. The databse will contain a list of the dbfiles
---   it's a hashtable name -> [FilePath]
---   it is written to /var/lib/mlocate/dblookup.tab
--- 2. The files are the mlocate data in
---  /var/lib/mlocate/<realpath>/<relative-to>/<root: file:///>
--- FIXME:Prototype with given src path but refine to realpath(2)
-
+-- 1. The database will be a dictionary of assocations of
+--    symbolic databae names to path-iists. 
+--    mkdb dbname path1 path2 path3.. creates a
+--    mlocate datafiles in
+--    /var/lib/mlocate/path{1,2,3..}/mlocate.db.
+---   It then inserts the association to
+--    /var/lib/mlocate/dblookup.tab (a haskell hashtable)
+-- 2. On subsequent runs the dictionay is updated.
 type DB = HT.HashMap String [FilePath]
 
 spawn :: String -> IO ExitCode
