@@ -49,4 +49,4 @@ mkdb key paths =
      updatedb ht key paths
 
 dblookup :: String-> [String] -> IO ExitCode
-dblookup key [search_str] = return $ ExitFailure 1
+dblookup key [search_str] = error "This command is not implemented yet!"

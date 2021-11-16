@@ -1,5 +1,7 @@
 .SUFFIXES: .hs .o .hi
 
+DEPS=DB.hs
+
 % : %.hs
 	ghc --make $@
 
@@ -10,3 +12,4 @@ all:: ${TARGETS}
 clean::
 	@for x in *~; do rm -v "$$x"; done
 
+${TARGETS} : ${DEPS}

@@ -1,0 +1,7 @@
+* INSTALL
+
+install -g locate -p g+ws /var/lib/mlocate/volumes 
+
+
+* VARIABLES:
+  ${LocateDB_Prefix:=/var/lib/mlocate} || ${HOME:/lib/mlocate}
