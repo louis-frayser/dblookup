@@ -1,6 +1,6 @@
 project=dblookup
 db_dirname=${project}
-DEPS=DB.hs
+DEPS=DB.hs Config.hs
 data_prefix=/usr/lucho/var/lib
 prefix=/usr/lucho
 
@@ -25,7 +25,8 @@ perms: ${TARGETS}
 	chmod g+s ${TARGETS}
 
 clean::
-	@for x in *~; do rm -v "$$x"; done
+	@for x in *{.hi,~,o}; do rm -fv "$$x"; done
+	@f=Config.hs; test -e $$f && mv -v $$f  Attic/
 
 ${TARGETS} : ${DEPS}
 

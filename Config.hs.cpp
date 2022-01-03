@@ -1,4 +1,4 @@
-module Config(Config,theConfig)
+module Config(Config, data_prefix,theConfig)
 where
 data Config=Config {
    prefix,
