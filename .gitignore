@@ -23,3 +23,5 @@ cabal.project.local~
 .ghc.environment.*
 mkdb
 dblookup
+Attic
+Config.hs
