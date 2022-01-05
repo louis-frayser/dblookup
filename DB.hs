@@ -37,8 +37,8 @@ updatedb :: DB -> String -> [FilePath] -> IO ExitCode
 -}
 updatedb ht key paths =
   let updatedb' (p:paths') =
-        do let dbdir=db_root </> p 
-           let dbfspec=dbdir </> p  </> db_basename
+        do let dbdir=db_root ++ "/" ++ p 
+           let dbfspec=dbdir </> db_basename
            createDirectoryIfMissing True dbdir
            spawn $ "updatedb -o " ++ dbfspec ++ " -U "++ p
            updatedb' paths'
