@@ -1,6 +1,6 @@
 project=dblookup
 db_dirname=${project}
-DEPS=DB.hs Config.hs
+DEPS=Cmd.hs DB.hs Config.hs
 data_prefix=/usr/lucho/var/lib
 prefix=/usr/lucho
 
@@ -10,15 +10,14 @@ prefix=/usr/lucho
 
 TARGETS=mkdb dblookup
 
-all:: contigure ${TARGETS} perms
+all:: configure ${TARGETS} perms
 
 configure: Config.hs
 
 Config.hs: Makefile  Config.hs.cpp
 	${CPP} -P  -o "$@" \
-     	-D 'PREFIX="${prefix}"' \
-			-D 'DATA_PREFIX="${data_prefix}"' Config.hs.cpp
-
+	-D 'PREFIX="${prefix}"' \
+	-D 'DATA_PREFIX="${data_prefix}"' Config.hs.cpp
 
 perms: ${TARGETS}
 	chgrp locate ${TARGETS}
@@ -32,8 +31,5 @@ ${TARGETS} : ${DEPS}
 
 
 install : ${TARGETS} perms
-	for n in mlocate plocate; \
-	do test -e /usr/bin/$$n && \
-	      install -g locate /${data_prefix}/$$n/${db_dirname};\
-	done
-	install ${TARGETS} ${prefix}/bin
+	install -v -g locate -d ${data_prefix}/${project}
+	install -v -g locate ${TARGETS} ${prefix}/bin
