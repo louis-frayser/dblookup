@@ -5,4 +5,5 @@ import System.Exit
 -- | spawn cmd
 --   Run cmd in a subshell
 spawn :: String -> IO ExitCode
-spawn cmd = putStrLn cmd >> system cmd
+spawn = system
+-- spawn cmd = putStrLn cmd >> system cmd
