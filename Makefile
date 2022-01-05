@@ -24,8 +24,8 @@ perms: ${TARGETS}
 	chmod g+s ${TARGETS}
 
 clean::
-	@for x in *{.hi,~,o}; do rm -fv "$$x"; done
-	@f=Config.hs; test -e $$f && mv -v $$f  Attic/
+	@for x in *.{hi,o}; do test -e "$$x" || continue;mv "$$x" Attic/; done
+	@for x in Config.hs *~;  do test -e "$$x" || continue;mv -v "$$x" Attic/; done
 
 ${TARGETS} : ${DEPS}
 
