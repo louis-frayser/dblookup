@@ -22,6 +22,13 @@ Planed are two tools: mkdb, dblookup they are analogous to updatedb and locate.
 	   associated with dbname.
 
 
+## Configuration 
+1. Configuration is handled by Config.hs.
+2. The locate database(s) name-to-files mapping is in the file \
+   _$prefix/lib/db/dblookup/dblookup.ht_
+3. *dblookup* analizes the locate databases in ($prefix/lib/db/**/dblookup.db)
+	at runtime to determine if they are mlocate or plocate databases.
+   
 ## Status
    
  mkdb is now funtional
