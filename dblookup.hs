@@ -1,21 +1,15 @@
 {- | dblookup -- search for files in mlocate databases
-import Control.Monad (liftM)
-import System.Directory
-import System.FilePath
-import System.Process
-
-
-import qualified System.IO.Strict as Strict
-import qualified Data.HashMap.Strict as HT
 -}
 import System.Exit
 import System.Environment
+import Config (theConfig, Config(..))
 import DB
+
 
 usage =
   "\nUsage: dblookup dbname search-term...\n\
     \   where dbname is  key into a set of mlocate dbases\n\
-    \      declared in /var/lib/mlocate/dblookup.tab\n\
+    \      declared in " ++ data_prefix theConfig ++ "/dblookup.tab\n\
     \      See: mkdb(1)\n"
       
 main :: IO ExitCode
