@@ -1,0 +1,64 @@
+Name:                dblookup
+Version:             0.0.1
+Synopsis:            Extends locate(1) to handle multiple databases.
+description:         You can now index the full filesystems into separate, smaller, sections that can be querried in part in combinations of parts.
+Homepage:            http://github.com/louis-frayer/dblookup
+License:             BSD3
+License-file:        LICENSE
+Author:              Louis Frayer
+Maintainer:          frayser411@gmail.com
+Category:            Filesystem, Database, SysAdm
+Build-type:          Simple
+Cabal-version:       >=1.8
+extra-source-files:  ChangeLog.md README.md
+
+-- -------------------------------------------------------                     
+Library
+   Build-depends:       base
+                      , process
+                      , directory
+                      , filepath
+                      , strict
+                      , unordered-containers
+
+   Extensions: CPP
+
+   Exposed-Modules:
+      Cmd
+      DB
+      Config
+
+   Hs-Source-Dirs: lib
+         
+   cpp-options:  -DPREFIX="/usr/lucho" -DDATA_PREFIX="/usr/lucho/lib"
+-- -------------------------------------------------------                     
+Executable mkdb
+  Main-is:             mkdb.hs
+  Build-depends:       base, directory, process, filepath, strict
+                     , unordered-containers
+  Hs-Source-Dirs: src, lib
+  other-modules: Cmd, Config, DB
+  cpp-options:  -DPREFIX="/usr/lucho" -DDATA_PREFIX="/usr/lucho/lib"
+
+-- -------------------------------------------------------                      
+Executable dblookup
+   Main-is:             dblookup.hs
+   Hs-Source-Dirs: src, lib
+   Build-depends:       base >= 4 && < 5
+                     , Cabal
+                     , process
+                      , cmdargs
+                      , directory
+                      , filepath
+                      , strict
+                      , unordered-containers
+                      
+   cpp-options:  -DPREFIX="/usr/lucho" -DDATA_PREFIX="/usr/lucho/lib"
+
+   other-modules: Cmd, Config, DB
+-- ------------------------------------------------------
+
+source-repository head
+  type:     git
+  location: git://github.com/louis-frayser/dblookup.git
+
