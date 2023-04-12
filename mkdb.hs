@@ -10,7 +10,7 @@ import qualified Data.HashMap.Strict as HT
 -}
 import System.Environment
 import System.Exit
-import DB
+import DB (mkdb)
 
 usage =
   "\nUsage: mkdb dbname path...\n\
