@@ -1,6 +1,6 @@
 project=dblookup
 db_dirname=${project}
-DEPS=Cmd.hs DB.hs Config.hs
+DEPS=$(addprefix lib/, Cmd.hs DB.hs Config.hs)
 data_prefix=/usr/lucho/var/lib
 prefix=/usr/lucho
 
@@ -10,14 +10,9 @@ prefix=/usr/lucho
 
 TARGETS=mkdb dblookup
 
-all:: configure ${TARGETS} perms
+all:: ${TARGETS} perms
 
-configure: Config.hs
 
-Config.hs: Makefile  Config.hs.cpp
-	${CPP} -P  -o "$@" \
-	-D 'PREFIX="${prefix}"' \
-	-D 'DATA_PREFIX="${data_prefix}"' Config.hs.cpp
 
 perms: ${TARGETS}
 	chgrp locate ${TARGETS}
