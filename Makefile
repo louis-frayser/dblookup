@@ -13,7 +13,7 @@ TARGETS=dist/build/dblookup/dblookup dist/build/mkdb/mkdb
 	ghc --make $@
 
 
-all:: ${TARGETS} perms
+all:: ${TARGETS}
 
 clean:
 	runhaskell Setup.hs clean
