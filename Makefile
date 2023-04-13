@@ -1,30 +1,39 @@
 project=dblookup
 db_dirname=${project}
-DEPS=$(addprefix lib/, Cmd.hs DB.hs Config.hs)
+DEPS=$(addprefix lib/, DB.hs Config.hs Cmd.hs) \
+     $(addprefox src/ mkdb.hs dblookup.hs) \
+     Setup.hs
+
 data_prefix=/usr/lucho/var/lib
 prefix=/usr/lucho
+TARGETS=dist/build/dblookup/dblookup dist/build/mkdb/mkdb
 
 .SUFFIXES: .hs .o .hi
 % : %.hs
 	ghc --make $@
 
-TARGETS=mkdb dblookup
 
 all:: ${TARGETS} perms
 
+clean:
+	runhaskell Setup.hs clean
+
+config configure: dist/setup-config
+
+dist/setup-config: dblookup.cabal
+	runhaskell Setup.hs configure
+
+build:  ${TARGETS}
 
 
 perms: ${TARGETS}
 	chgrp locate ${TARGETS}
 	chmod g+s ${TARGETS}
 
-clean::
-	@for x in *.{hi,o}; do test -e "$$x" || continue;mv "$$x" Attic/; done
-	@for x in Config.hs *~;  do test -e "$$x" || continue;mv -v "$$x" Attic/; done
-
 ${TARGETS} : ${DEPS}
-
+	runhaskell Setup.hs build
 
 install : ${TARGETS} perms
 	install -v -g locate -d ${data_prefix}/${project}
 	install -v -g locate ${TARGETS} ${prefix}/bin
+

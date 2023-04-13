@@ -13,25 +13,7 @@ Cabal-version:       >=1.8
 extra-source-files:  ChangeLog.md README.md
 
 -- -------------------------------------------------------                     
-Library
-   Build-depends:       base
-                      , process
-                      , directory
-                      , filepath
-                      , strict
-                      , unordered-containers
 
-   Extensions: CPP
-
-   Exposed-Modules:
-      Cmd
-      DB
-      Config
-
-   Hs-Source-Dirs: lib
-         
-   cpp-options:  -DPREFIX="/usr/lucho" -DDATA_PREFIX="/usr/lucho/lib"
--- -------------------------------------------------------                     
 Executable mkdb
   Main-is:             mkdb.hs
   Build-depends:       base, directory, process, filepath, strict
