@@ -20,14 +20,21 @@ TARGETS=dist/build/dblookup/dblookup dist/build/mkdb/mkdb
 	ghc --make $@
 
 
-all:: @echo "This makefile uses runhaskell"
-      @echo "Other ways of building are stack, or cabal"
-      @echo "for runhaskell: make configure build"
-      @echo "for cabal:  cabal configure; cabal build"
-      @echo "for stack:  stack build"
+current_task:
+	stack build intero --copy-compiler-tool
+
+
+all::
+	@echo "This makefile uses runhaskell"
+	@echo "Other ways of building are stack, or cabal"
+	@echo "for runhaskell: make configure build"
+	@echo "for cabal:  cabal configure; cabal build"
+	0@echo "for stack:  stack build"
 
 clean:
-	runhaskell Setup.hs clean
+	@if test -d dist; then  runhaskell Setup.hs clean; fi
+	rm -f cabal.project.local~
+	if [ -d .stack-work ]; then stack clean; fi
 
 config configure: dist/setup-config
 
