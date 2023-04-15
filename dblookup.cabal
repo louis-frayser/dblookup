@@ -21,7 +21,7 @@ Source-repository head
 -- -------------------------------------------------------                     
 Executable mkdb
   Main-is:             mkdb.hs
-  Build-depends:       base, directory, process, filepath, strict
+  Build-depends:       base >=4.16 && <4.17, directory, process, filepath, strict
                      , unordered-containers
   Hs-Source-Dirs: src, lib
   other-modules: Cmd, Config, DB
@@ -31,7 +31,7 @@ Executable mkdb
 Executable dblookup
    Main-is:             dblookup.hs
    Hs-Source-Dirs: src, lib
-   Build-depends:      base, directory, process, filepath, strict
+   Build-depends:      base >=4.16 && <4.17, directory, process, filepath, strict
                      , unordered-containers
 
    cpp-options:  -DPREFIX="/usr/lucho" -DDATA_PREFIX="/usr/lucho/lib"

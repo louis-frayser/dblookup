@@ -1,3 +1,10 @@
+#! /usr/bin/make
+
+#### There are at least 3 wayst to use thist
+#### 1. runhaskell Setup
+#### 2. cabal
+#### 3. stack
+
 project=dblookup
 db_dirname=${project}
 DEPS=$(addprefix lib/, DB.hs Config.hs Cmd.hs) \
@@ -13,7 +20,11 @@ TARGETS=dist/build/dblookup/dblookup dist/build/mkdb/mkdb
 	ghc --make $@
 
 
-all:: ${TARGETS}
+all:: @echo "This makefile uses runhaskell"
+      @echo "Other ways of building are stack, or cabal"
+      @echo "for runhaskell: make configure build"
+      @echo "for cabal:  cabal configure; cabal build"
+      @echo "for stack:  stack build"
 
 clean:
 	runhaskell Setup.hs clean
