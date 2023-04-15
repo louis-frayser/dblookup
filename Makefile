@@ -23,15 +23,13 @@ config configure: dist/setup-config
 dist/setup-config: dblookup.cabal
 	runhaskell Setup.hs configure
 
-build:  ${TARGETS}
-
+build ${TARGETS}:  config ${DEPS}
+	runhaskell Setup.hs build
 
 perms: ${TARGETS}
 	chgrp locate ${TARGETS}
 	chmod g+s ${TARGETS}
 
-${TARGETS} : ${DEPS}
-	runhaskell Setup.hs build
 
 install : ${TARGETS} perms
 	install -v -g locate -d ${data_prefix}/${project}

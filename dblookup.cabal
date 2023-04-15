@@ -10,10 +10,15 @@ Maintainer:          frayser411@gmail.com
 Category:            Filesystem, Database, SysAdm
 Build-type:          Simple
 Cabal-version:       >=1.8
-extra-source-files:  ChangeLog.md README.md
+
+Extra-source-files:
+   ChangeLog.md, README.md
+                        
+Source-repository head
+  type:     git
+  location: git://github.com/louis-frayser/dblookup.git
 
 -- -------------------------------------------------------                     
-
 Executable mkdb
   Main-is:             mkdb.hs
   Build-depends:       base, directory, process, filepath, strict
@@ -26,21 +31,10 @@ Executable mkdb
 Executable dblookup
    Main-is:             dblookup.hs
    Hs-Source-Dirs: src, lib
-   Build-depends:       base >= 4 && < 5
-                     , Cabal
-                     , process
-                      , cmdargs
-                      , directory
-                      , filepath
-                      , strict
-                      , unordered-containers
-                      
+   Build-depends:      base, directory, process, filepath, strict
+                     , unordered-containers
+
    cpp-options:  -DPREFIX="/usr/lucho" -DDATA_PREFIX="/usr/lucho/lib"
 
    other-modules: Cmd, Config, DB
--- ------------------------------------------------------
-
-source-repository head
-  type:     git
-  location: git://github.com/louis-frayser/dblookup.git
-
+-- ---------------------------------------------------------
