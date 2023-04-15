@@ -19,13 +19,16 @@ TARGETS=dist/build/dblookup/dblookup dist/build/mkdb/mkdb
 % : %.hs
 	ghc --make $@
 
-
+.ONESHELL:
 all::
-	@echo "This makefile uses runhaskell"
-	@echo "Other ways of building are stack, or cabal"
-	@echo "for runhaskell: make configure build"
-	@echo "for cabal:  cabal configure; cabal build"
-	0@echo "for stack:  stack build"
+	@cat <<EOF 
+	This makefile uses runhaskell. 
+	Other ways of building are byuing the stack, or cabal frameworks. 
+	--
+	For runhaskell: make configure build 
+	For cabal:      cabal configure; cabal build 
+	For stack:      stack build 
+	EOF
 
 clean:
 	@if test -d dist; then  runhaskell Setup.hs clean; fi
