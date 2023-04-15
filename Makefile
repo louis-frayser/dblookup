@@ -20,10 +20,6 @@ TARGETS=dist/build/dblookup/dblookup dist/build/mkdb/mkdb
 	ghc --make $@
 
 
-current_task:
-	stack build intero --copy-compiler-tool
-
-
 all::
 	@echo "This makefile uses runhaskell"
 	@echo "Other ways of building are stack, or cabal"
