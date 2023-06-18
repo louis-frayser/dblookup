@@ -1,7 +1,17 @@
+-*-org-*-
 * INSTALL
 
-install -g locate -p g+ws /var/lib/mlocate/volumes 
+** Install the database directory
+install -g locate -p g+ws ${data-prefix}/dblookup
 
 
-* VARIABLES:
-  ${LocateDB_Prefix:=/var/lib/mlocate} || ${HOME:/lib/mlocate}
+* TESTING
+** Create a manpage to use as a test spec.
+Manpages are created in markdown (.ronn) files and converted to roff
+with the ronn(1) command (app-text/rong-ng) in Gentoo Linux.
+[1] dblookup.1
+[2] mkdb.1 (a symlink to the above)
+
+** Create test cases for the use cases in the manpage.
+
+
