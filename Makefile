@@ -10,14 +10,18 @@ db_dirname=${project}
 DEPS=$(addprefix lib/, DB.hs Config.hs Cmd.hs) \
      $(addprefox src/ mkdb.hs dblookup.hs) \
      Setup.hs
-
+MAN_TARGETS=$(addprefix doc/, dblookup.1 mkdb.1)
 data_prefix=/usr/lucho/var/lib
 prefix=/usr/lucho
-TARGETS=dist/build/dblookup/dblookup dist/build/mkdb/mkdb
+TARGETS=dist/build/dblookup/dblookup dist/build/mkdb/mkdb dist/build/dblookup.1 dist/build/mkdb.1
 
-.SUFFIXES: .hs .o .hi
+.SUFFIX: .hs .o .hi .md .1
 % : %.hs
 	ghc --make $@
+
+% : %.md
+	mkdir -p dist/build/man
+	pandoc -s -t man $< >$@
 
 .ONESHELL:
 all::
@@ -40,8 +44,13 @@ config configure: dist/setup-config
 dist/setup-config: dblookup.cabal
 	runhaskell Setup.hs configure
 
-build ${TARGETS}:  config ${DEPS}
+build ${TARGETS}:  config ${DEPS} doc
 	runhaskell Setup.hs build
+
+doc/mkdb.1 :  doc/dblookup.1
+	ln -sf dblookup.1 $@
+doc: ${MAN_TARGETS}
+	install -m 222 $@/*.1  dist/build/man/
 
 perms: ${TARGETS}
 	chgrp locate ${TARGETS}
