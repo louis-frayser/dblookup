@@ -33,7 +33,7 @@ all::
 clean:
 	@if test -d dist; then  runhaskell Setup.hs clean; fi
 	rm -f cabal.project.local~
-	if [ -d .stack-work ]; then stack clean; fi
+	-if [ -d .stack-work ]; then stack --allow-different-user clean; fi
 
 config configure: dist/setup-config
 
