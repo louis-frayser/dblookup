@@ -4,6 +4,10 @@
 ** Install the database directory
 install -g locate -p g+ws ${data-prefix}/dblookup
 
+** Digagnostics & Test
+*** Create a -v to show what is being done.
+*** Create test cases
+
 
 * TESTING
 ** Create a manpage to use as a test spec.
