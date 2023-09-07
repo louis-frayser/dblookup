@@ -27,7 +27,7 @@ TARGETS=dist/build/dblookup/dblookup dist/build/mkdb/mkdb dist/build/dblookup.1 
 all::
 	@cat <<EOF 
 	This makefile uses runhaskell. 
-	Other ways of building are byuing the stack, or cabal frameworks. 
+	Other ways of building are by using the stack, or cabal frameworks. 
 	--
 	For runhaskell: make configure build 
 	For cabal:      cabal configure; cabal build 
