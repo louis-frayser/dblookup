@@ -28,10 +28,11 @@ Planed are two tools: mkdb, dblookup they are analogous to updatedb and locate.
    _$prefix/lib/db/dblookup/dblookup.ht_
 3. *dblookup* analizes the locate databases in ($prefix/lib/db/**/dblookup.db)
 	at runtime to determine if they are mlocate or plocate databases.
-   
+4.  NOTE: /etc/updatedb.conf still controls what _updatedb_ does.
+
 ## Status
    
- mkdb is now funtional
+ mkdb is now functional
    
 ```
 $ ./mkdb bin /bin /usr/bin ~/bin /sbin /usr/lucho/*bin
