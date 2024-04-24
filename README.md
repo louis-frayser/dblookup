@@ -6,19 +6,19 @@ Planed are two tools: mkdb, dblookup they are analogous to updatedb and locate.
 
 1. mkdb dbname path1 path2 ...
 
-   runs mkdir -p ${LOCATEDIR}/{path1,path2,..}\
-        updatedb -o $LOCATEDIR/path/mlocate.db -U path1\
-	updatedb -o $LOCATEDIR/path/mlocate.db -U path2\
+   Runs mkdir -p ${LOCATEDIR}/{path1,path2,..}\
+        updatedb -o $LOCATEDIR/path1/mlocate.db -U path1\
+	    updatedb -o $LOCATEDIR/path2/mlocate.db -U path2\
 	...for each path\
    Adds to the database the assoction dbname-> [path1,path2,...]\
    \
-   The database directory is $LOCATEDIR/dblookp.ht.
+   The database definition file is $LOCATEDIR/dblookp.ht.
 	
 	
 	
 2. dblookup dbname seachspec...
 
-    looks for matches to searchspec in mlocate databases
+    Looks for matches to searchspec in mlocate databases
 	   associated with dbname.
 
 
