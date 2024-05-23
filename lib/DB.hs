@@ -40,7 +40,9 @@ updatedb ht key paths =
         do let dbdir=db_root ++ "/" ++ p 
            let dbfspec=dbdir </> db_basename
            createDirectoryIfMissing True dbdir
-           spawn $ "updatedb -o " ++ dbfspec ++ " -U "++ p
+           spawn $ "updatedb -o " ++ dbfspec ++ 
+                   " --prunepaths=''" ++ 
+                   " -U "++ p
            updatedb' paths'
       updatedb' [] =
         do cpaths <- mapM canonicalizePath paths
