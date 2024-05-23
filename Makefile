@@ -1,6 +1,6 @@
 #! /usr/bin/make
 
-#### There are at least 3 wayst to use thist
+#### There are at least 3 way to use thist
 #### 1. runhaskell Setup
 #### 2. cabal
 #### 3. stack
@@ -14,6 +14,7 @@ MAN_TARGETS=$(addprefix doc/, dblookup.1 mkdb.1)
 data_prefix=/usr/lucho/var/lib
 prefix=/usr/lucho
 TARGETS=dist/build/dblookup/dblookup dist/build/mkdb/mkdb dist/build/dblookup.1 dist/build/mkdb.1
+TARGETS+=$(addprefix newstyle-dist/build/,dblookup.1 mkdb.1)
 
 .SUFFIX: .hs .o .hi .md .1
 % : %.hs
@@ -51,6 +52,7 @@ doc/mkdb.1 :  doc/dblookup.1
 	ln -sf dblookup.1 $@
 doc: ${MAN_TARGETS}
 	install -m 222 $@/*.1  dist/build/man/
+	install -m 222 $@/*.1  newstyle-dist/build/man/
 
 perms: ${TARGETS}
 	chgrp locate ${TARGETS}
@@ -61,3 +63,15 @@ install : ${TARGETS} perms
 	install -v -g locate -d ${data_prefix}/${project}
 	install -v -g locate ${TARGETS} ${prefix}/bin
 
+stack:  stack_build stack_install
+
+stack_build:
+	stack build
+
+stack_install:
+	stack install
+
+
+cabal:
+	cabal configure
+	cabal build
