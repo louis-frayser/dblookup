@@ -59,9 +59,11 @@ perms: ${TARGETS}
 	chmod g+s ${TARGETS}
 
 
-install : ${TARGETS} perms
+install0 : ${TARGETS} perms
 	install -v -g locate -d ${data_prefix}/${project}
 	install -v -g locate ${TARGETS} ${prefix}/bin
+
+install: cabal_install
 
 stack:  stack_build stack_install
 
@@ -71,7 +73,9 @@ stack_build:
 stack_install:
 	stack install
 
-
+cabal_install:
+	cabal install --overwrite-policy=always
 cabal:
 	cabal configure
 	cabal build
+	cabal install --overwrite-policy=always

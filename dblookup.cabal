@@ -1,5 +1,5 @@
 Name:                dblookup
-Version:             0.0.1
+Version:             0.0.2
 Synopsis:            Extends locate(1) to handle multiple databases.
 description:         You can now index the full filesystems into separate, smaller, sections that can be querried in part in combinations of parts.
 Homepage:            http://github.com/louis-frayer/dblookup
@@ -21,7 +21,7 @@ Source-repository head
 -- -------------------------------------------------------                     
 Executable mkdb
   Main-is:             mkdb.hs
-  Build-depends:       base >=4.16 && <4.17, directory, process, filepath, strict
+  Build-depends:       base >=4.16 && <4.19, directory, process, filepath, strict
                      , unordered-containers
   Hs-Source-Dirs: src, lib
   other-modules: Cmd, Config, DB
@@ -31,7 +31,7 @@ Executable mkdb
 Executable dblookup
    Main-is:             dblookup.hs
    Hs-Source-Dirs: src, lib
-   Build-depends:      base >=4.16 && <4.17, directory, process, filepath, strict
+   Build-depends:      base >=4.16 && <4.19, directory, process, filepath, strict
                      , unordered-containers
 
    cpp-options:  -DPREFIX="/usr/lucho" -DDATA_PREFIX="/usr/lucho/lib"

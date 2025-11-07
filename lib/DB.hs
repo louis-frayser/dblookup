@@ -3,7 +3,7 @@ where
 import Prelude hiding (lookup)
 import Data.List (intercalate)
 import Control.Monad (liftM)
-import System.Directory
+import System.Directory(canonicalizePath, createDirectoryIfMissing, doesFileExist)
 import System.FilePath
 import System.Exit
 import System.Environment
@@ -60,11 +60,11 @@ $MLOCATEDIR/dblookup.ht is updated to
   NOTE: MLOCATEDIR is configurable.
 -}
 
-
 mkdb :: String -> [FilePath] ->  IO ExitCode
 mkdb key paths = 
   do ht <- readHTfile
-     updatedb ht key paths
+     cpaths <- mapM canonicalizePath paths
+     updatedb ht key cpaths
 
 dblookup :: String-> [String] -> IO ExitCode
 dblookup key search_patterns =
