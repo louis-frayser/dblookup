@@ -1,10 +1,11 @@
 #! /usr/bin/make
 
-#### There are at least 3 way to use thist
+#### There are at least 3 way to use this
 #### 1. runhaskell Setup
 #### 2. cabal
 #### 3. stack
 
+undefine GHC_PACKAGE_PATH
 project=dblookup
 db_dirname=${project}
 DEPS=$(addprefix lib/, DB.hs Config.hs Cmd.hs) \
@@ -38,6 +39,7 @@ all::
 clean:
 	@if test -d dist; then  runhaskell Setup.hs clean; fi
 	rm -f cabal.project.local~
+	[ -d dist-newstyle ] && cabal clean
 	-if [ -d .stack-work ]; then stack --allow-different-user clean; fi
 
 config configure: dist/setup-config
@@ -77,5 +79,5 @@ cabal_install:
 	cabal install --overwrite-policy=always
 cabal:
 	cabal configure
-	cabal build
+	cabal build 2>&1 |tee errlist
 	cabal install --overwrite-policy=always
