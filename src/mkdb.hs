@@ -12,6 +12,7 @@ import System.Environment
 import System.Exit
 import DB (mkdb)
 
+usage :: String
 usage =
   "\nUsage: mkdb dbname path...\n\
     \   where dbname is  key into a list of files for each\n\
@@ -20,6 +21,9 @@ usage =
     \      'dblookup key search-term...'"
       
 main :: IO ExitCode
-main = do args <- getArgs
-          if  length args < 2 then  error usage
-              else let (k:v) = args in mkdb k v
+main = do 
+  args <- getArgs
+  case args of
+    []  -> error usage
+    [_] -> error usage
+    (k:rest) -> mkdb k rest
