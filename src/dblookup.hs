@@ -5,7 +5,7 @@ import System.Environment
 import Config (theConfig, Config(..))
 import DB
 
-
+usage :: String
 usage =
   "\nUsage: dblookup dbname search-term...\n\
     \   where dbname is  key into a set of mlocate dbases\n\
@@ -13,6 +13,9 @@ usage =
     \      See: mkdb(1)\n"
       
 main :: IO ExitCode
-main = do args <- getArgs
-          if  length args < 2 then  error usage
-              else let (k:v) = args in dblookup k v
+main = do
+  args <- getArgs
+  case args of
+    []       -> error usage
+    [_]      -> error usage
+    (k:rest) -> dblookup k rest

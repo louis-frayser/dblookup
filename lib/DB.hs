@@ -6,7 +6,6 @@ import Control.Monad (liftM)
 import System.Directory(canonicalizePath, createDirectoryIfMissing, doesFileExist)
 import System.FilePath
 import System.Exit
-import System.Environment
 import qualified System.IO.Strict as Strict
 import qualified Data.HashMap.Strict as HT
 import Config ( theConfig, Config(..))
@@ -40,10 +39,10 @@ updatedb ht key paths =
         do let dbdir=db_root ++ "/" ++ p 
            let dbfspec=dbdir </> db_basename
            createDirectoryIfMissing True dbdir
-           spawn $ "updatedb -o " ++ dbfspec ++ 
-                   " --prunepaths=''" ++ 
-                   " -U "++ p
-           updatedb' paths'
+           rc <-spawn $ "updatedb -o " ++ dbfspec ++ " --prunepaths=''" ++ " -U "++ p
+           if rc == ExitSuccess
+              then updatedb' paths'
+           else  return rc
       updatedb' [] =
         do cpaths <- mapM canonicalizePath paths
            writeFile ht_path (show $ HT.insert key cpaths ht)
@@ -80,4 +79,3 @@ dblookup key search_patterns =
                 in do spawn $ "locate -d " ++
                         (intercalate ":" dbpaths ) ++
                         " " ++ (intercalate " " search_patterns)
-     return ExitSuccess     
