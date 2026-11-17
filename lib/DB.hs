@@ -65,10 +65,11 @@ mkdb key paths =
      cpaths <- mapM canonicalizePath paths
      updatedb ht key cpaths
 
-dblookup :: String-> [String] -> IO ExitCode
-dblookup key search_patterns =
+dblookup :: String-> [String] -> Bool -> IO ExitCode
+dblookup key search_patterns ignorecase =
   do ht <- readHTfile :: IO DB
      let maybe_dbrelpaths =  (HT.lookup key ht)
+         options = if ignorecase then " -i " else ""
      case maybe_dbrelpaths of
           Nothing -> error $
                         "Database name `" ++ key ++
@@ -76,6 +77,6 @@ dblookup key search_patterns =
           Just dbrelpaths ->
             let dbpaths = map (\p -> db_root ++
                                 p ++ "/" ++ db_basename) dbrelpaths
-                in do spawn $ "locate -d " ++
+                in do spawn $ "locate " ++ options ++ " -d " ++
                         (intercalate ":" dbpaths ) ++
                         " " ++ (intercalate " " search_patterns)

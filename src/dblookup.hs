@@ -1,7 +1,9 @@
 {- | dblookup -- search for files in mlocate databases
 -}
+import Control.Monad (when)
 import System.Exit
 import System.Environment
+import System.Console.GetOpt
 import Config (theConfig, Config(..))
 import DB
 
@@ -15,7 +17,17 @@ usage =
 main :: IO ExitCode
 main = do
   args <- getArgs
+  let (flags, rest, errs) = 
+        getOpt Permute [ Option ['i'] ["ignore-case"] (NoArg 'i') "ignore case" ] args
+      ignoreCase = 'i' `elem` flags
+  when (not . null $ errs) (error (concat errs))
+  main' rest ignoreCase
+
+
+
+main' :: [String] -> Bool -> IO ExitCode
+main' args flags = 
   case args of
     []       -> error usage
     [_]      -> error usage
-    (k:rest) -> dblookup k rest
+    (dict:values) -> dblookup dict values flags
