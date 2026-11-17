@@ -31,3 +31,4 @@ doc/dblookup.1
 doc/mkdb.1
 mkdb
 stack.yaml
+errlist
